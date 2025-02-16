@@ -1,0 +1,27 @@
+@startuml
+
+class Pool {
++ void run()
+- void quack(Duckable...)
+- void swim(Duckable...)
++ {static} void main(String[])
+}
+interface Duckable{
++ void quack()
++ void swim()
+}
+class Duck implements Duckable{
++ void quack()
++ void swim()
+}
+class ElectronicDuck implements Duckable {
+- boolean _on
++ void quack()
++ void swim()
++ void turnOn()
++ void turnOff()
+}
+
+Pool ..> Duckable : uses
+
+@enduml
