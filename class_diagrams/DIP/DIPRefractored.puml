@@ -1,0 +1,52 @@
+@startuml
+interface IDataWriter {
+    + writeData(String inputString): int
+}
+
+interface IDataReader {
+    + readData(): String
+}
+
+class MyDatabase {
+    - static Map<Integer, String> _data
+    - static int _count
+    + writeData(String inputString): int
+}
+
+class File {
+    - path: String
+    + File(String path)
+    + readData(): String
+    + writeData(String inputString): int
+}
+
+class NetworkReader {
+    - protocol: String
+    - host: String
+    - file: String
+    + NetworkReader(String protocol, String host, String file)
+    + readData(): String
+}
+
+class EncodingModule {
+    - dataReader: IDataReader
+    - dataWriter: IDataWriter
+    + EncodingModule(IDataReader dataReader, IDataWriter dataWriter)
+    + encode(): void
+}
+
+class EncodingModuleClient {
+    + main(String[] args): void
+}
+
+IDataReader <|.. File
+IDataReader <|.. NetworkReader
+
+IDataWriter <|.. MyDatabase
+IDataWriter <|.. File
+
+EncodingModule o-- IDataReader
+EncodingModule o-- IDataWriter
+
+EncodingModuleClient --> EncodingModule
+@enduml
